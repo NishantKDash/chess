@@ -1,7 +1,7 @@
 export default function Page(): JSX.Element {
   return (
     <main>
-      <div className="flex">
+      <div className="flex p-5 pl-72">
         <div className="flex w-2/3 h-screen justify-center items-center">
           <img
             src="https://cdn.pixabay.com/photo/2015/12/07/10/42/chess-1080533_960_720.jpg"

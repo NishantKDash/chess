@@ -6,7 +6,11 @@
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
-    "./signup" : "./src/signup.tsx"
+    "./signup" : "./src/signup.tsx",
+    "./pvpbutton" : "./src/pvpSideButton.tsx",
+    "./computerbutton" : "./src/computerSideButton.tsx",
+    "./signinbutton" : "./src/signinSideButton.tsx",
+    "./signupbutton" : "./src/signupSideButton.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
