@@ -10,7 +10,10 @@
     "./pvpbutton" : "./src/pvpSideButton.tsx",
     "./computerbutton" : "./src/computerSideButton.tsx",
     "./signinbutton" : "./src/signinSideButton.tsx",
-    "./signupbutton" : "./src/signupSideButton.tsx"
+    "./signupbutton" : "./src/signupSideButton.tsx",
+    "./row" : "./src/row.tsx",
+    "./cell" : "./src/cell.tsx",
+    "./colorTypes" : "./src/colorTypes.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
