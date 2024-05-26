@@ -1,6 +1,4 @@
 export enum ColorType {
-  gray,
-  slate,
-  white,
-  neutral,
+  LIME = "bg-lime-600",
+  AMBER = "bg-amber-100",
 }
