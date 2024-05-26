@@ -22,13 +22,12 @@ export default function Navbar(): JSX.Element {
             </span>
           </a>
         </div>
-        <div className="h-full px-3 pb-4 pt-10 overflow-y-auto bg-white dark:bg-gray-800">
-          <ul className="space-y-2 font-medium">
-            <PVPButton></PVPButton>
-            <ComputerButton></ComputerButton>
-            <SignInButton></SignInButton>
-            <SignUpButton></SignUpButton>
-          </ul>
+
+        <div className="m-3 mt-10 font-medium">
+          <PVPButton></PVPButton>
+          <ComputerButton></ComputerButton>
+          <SignInButton></SignInButton>
+          <SignUpButton></SignUpButton>
         </div>
       </aside>
     </div>
