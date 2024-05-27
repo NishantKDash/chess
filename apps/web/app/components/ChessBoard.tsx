@@ -16,13 +16,95 @@ for (let i = 0; i < verticalAxes.length; i++) {
       pos.push({
         x: verticalAxes[i] || "",
         y: horizontalAxes[j] || "",
-        piecePath: "./assets/light_pawn.png",
+        piecePath: "light_pawn.png",
       });
     } else if (i == 1) {
       pos.push({
         x: verticalAxes[i] || "",
         y: horizontalAxes[j] || "",
-        piecePath: "./assets/light_pawn.png",
+        piecePath: "dark_pawn.png",
+      });
+    } else if (i == 7) {
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "a",
+        piecePath: "white_rook.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "b",
+        piecePath: "light_knight.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "c",
+        piecePath: "light_bishop.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "d",
+        piecePath: "light_queen.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "e",
+        piecePath: "light_king.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "f",
+        piecePath: "light_knight.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "g",
+        piecePath: "light_bishop.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "h",
+        piecePath: "white_rook.png",
+      });
+    } else if (i == 0) {
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "a",
+        piecePath: "dark_rook.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "b",
+        piecePath: "dark_knight.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "c",
+        piecePath: "dark_bishop.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "d",
+        piecePath: "dark_queen.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "e",
+        piecePath: "dark_king.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "f",
+        piecePath: "dark_knight.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "g",
+        piecePath: "dark_bishop.png",
+      });
+      pos.push({
+        x: verticalAxes[i] || "",
+        y: "h",
+        piecePath: "dark_rook.png",
       });
     }
   }
