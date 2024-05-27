@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ColorType } from "@repo/ui/colorTypes";
 import Cell from "@repo/ui/cell";
@@ -109,7 +110,36 @@ for (let i = 0; i < verticalAxes.length; i++) {
     }
   }
 }
+
 const ChessBoard = () => {
+  let activePiece: HTMLElement | null = null;
+  function grabPiece(e: React.MouseEvent) {
+    const element = e.target as HTMLElement;
+    if (element.classList.contains("chessPiece")) {
+      const x = e.clientX - 50;
+      const y = e.clientY - 50;
+      element.style.position = "absolute";
+      element.style.left = `${x}px`;
+      element.style.top = `${y}px`;
+      activePiece = element;
+    }
+  }
+
+  function movePiece(e: React.MouseEvent) {
+    if (activePiece) {
+      const x = e.clientX - 50;
+      const y = e.clientY - 50;
+      activePiece.style.position = "absolute";
+      activePiece.style.left = `${x}px`;
+      activePiece.style.top = `${y}px`;
+    }
+  }
+
+  function dropPiece(e: React.MouseEvent) {
+    if (activePiece) {
+      activePiece = null;
+    }
+  }
   let board = [];
 
   for (let i = 0; i < verticalAxes.length; i++) {
@@ -139,7 +169,16 @@ const ChessBoard = () => {
       );
     }
   }
-  return <div className="grid grid-cols-8 w-4/5">{board}</div>;
+  return (
+    <div
+      className="grid grid-cols-8 w-4/5"
+      onMouseDown={(e) => grabPiece(e)}
+      onMouseMove={(e) => movePiece(e)}
+      onMouseUp={(e) => dropPiece(e)}
+    >
+      {board}
+    </div>
+  );
 };
 
 export default ChessBoard;
