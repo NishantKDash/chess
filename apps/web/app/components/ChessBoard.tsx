@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { ColorType } from "@repo/ui/colorTypes";
+import { useRef } from "react";
 import Cell from "@repo/ui/cell";
 const verticalAxes = ["8", "7", "6", "5", "4", "3", "2", "1"];
 const horizontalAxes = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -112,6 +113,7 @@ for (let i = 0; i < verticalAxes.length; i++) {
 }
 
 const ChessBoard = () => {
+  const boardRef = useRef<HTMLDivElement>(null);
   let activePiece: HTMLElement | null = null;
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement;
@@ -126,9 +128,24 @@ const ChessBoard = () => {
   }
 
   function movePiece(e: React.MouseEvent) {
-    if (activePiece) {
-      const x = e.clientX - 50;
-      const y = e.clientY - 50;
+    const chessBoard = boardRef.current;
+    if (activePiece && chessBoard) {
+      const minX = chessBoard.offsetLeft - 50;
+      const minY = chessBoard.offsetTop - 50;
+      const maxX = chessBoard.offsetLeft + chessBoard.clientWidth - 50;
+      const maxY = chessBoard.offsetTop + chessBoard.clientHeight - 50;
+      const x =
+        e.clientX - 50 >= minX
+          ? e.clientX - 50 <= maxX
+            ? e.clientX - 50
+            : maxX
+          : minX;
+      const y =
+        e.clientY - 50 >= minY
+          ? e.clientY - 50 <= maxY
+            ? e.clientY - 50
+            : maxY
+          : minY;
       activePiece.style.position = "absolute";
       activePiece.style.left = `${x}px`;
       activePiece.style.top = `${y}px`;
@@ -175,6 +192,7 @@ const ChessBoard = () => {
       onMouseDown={(e) => grabPiece(e)}
       onMouseMove={(e) => movePiece(e)}
       onMouseUp={(e) => dropPiece(e)}
+      ref={boardRef}
     >
       {board}
     </div>
