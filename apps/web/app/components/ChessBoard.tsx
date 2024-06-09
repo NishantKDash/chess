@@ -6,54 +6,53 @@ import Cell from "@repo/ui/cell";
 import { whiteInit, blackInit } from "../lib/boardinit";
 
 const ChessBoard = () => {
-  const [board, setBoard] = useState<JSX.Element[]>([]);
-  useEffect(() => {
-    const { pos, horizontalAxes, verticalAxes } = whiteInit();
-    const newBoard: JSX.Element[] = [];
-    for (let i = 0; i < verticalAxes.length; i++) {
-      for (let j = 0; j < horizontalAxes.length; j++) {
-        const isEvenRow = i % 2 === 0;
-        const isEvenColumn = j % 2 === 0;
+  const { pos, horizontalAxes, verticalAxes } = whiteInit();
+  const [positions, setPositions] = useState(pos);
 
-        const cellColor =
-          (isEvenRow && isEvenColumn) || (!isEvenRow && !isEvenColumn)
-            ? ColorType.AMBER
-            : ColorType.LIME;
+  let [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
+  const [gridX, setGridX] = useState(0);
+  const [gridY, setGridY] = useState(0);
+  const board: JSX.Element[] = [];
 
-        let piecePath = "";
-        for (let k = 0; k < pos.length; k++) {
-          if (
-            pos[k]?.x === verticalAxes[i] &&
-            pos[k]?.y === horizontalAxes[j]
-          ) {
-            piecePath = pos[k]?.piecePath || "";
-            break;
-          }
-        }
-        newBoard.push(
-          <Cell
-            key={`${verticalAxes[i]}${horizontalAxes[j]}`}
-            color={cellColor}
-            path={piecePath}
-          />
-        );
-      }
-    }
+  for (let i = 0; i < positions.length; i++) {
+    const position = positions[i];
+    let cellColor = ColorType.AMBER;
+    if (position && position.x_idx % 2 === 0 && position?.y_idx % 2 === 0)
+      cellColor = ColorType.AMBER;
+    else if (position && position.x_idx % 2 === 0 && position?.y_idx % 2 !== 0)
+      cellColor = ColorType.LIME;
+    else if (position && position.x_idx % 2 !== 0 && position?.y_idx % 2 === 0)
+      cellColor = ColorType.LIME;
+    else if (position && position.x_idx % 2 !== 0 && position?.y_idx % 2 !== 0)
+      cellColor = ColorType.AMBER;
 
-    setBoard(newBoard);
-  }, []);
+    let piecePath = position?.piecePath;
+    board.push(
+      <Cell
+        key={`${position?.x_idx}${position?.y_idx}`}
+        color={cellColor}
+        path={piecePath}
+      />
+    );
+  }
 
   const boardRef = useRef<HTMLDivElement>(null);
-  let activePiece: HTMLElement | null = null;
+
   function grabPiece(e: React.MouseEvent) {
+    const chessBoard = boardRef.current;
     const element = e.target as HTMLElement;
-    if (element.classList.contains("chessPiece")) {
+    if (element.classList.contains("chessPiece") && chessBoard) {
       const x = e.clientX - 50;
       const y = e.clientY - 50;
       element.style.position = "absolute";
       element.style.left = `${x}px`;
       element.style.top = `${y}px`;
-      activePiece = element;
+      const px = Math.floor((e.clientX - chessBoard.offsetLeft) / 100);
+      const py = Math.floor((e.clientY - chessBoard.offsetTop - 800) / 100) + 8;
+      setActivePiece(element);
+
+      setGridX(px);
+      setGridY(py);
     }
   }
 
@@ -82,13 +81,16 @@ const ChessBoard = () => {
     }
   }
 
-  function dropPiece(e: React.MouseEvent) {
-    if (activePiece) {
-      console.log(e);
-      activePiece = null;
+  const dropPiece = (e: React.MouseEvent) => {
+    const chessBoard = boardRef.current;
+    if (activePiece && chessBoard) {
+      const x = Math.floor((e.clientX - chessBoard.offsetLeft) / 100);
+      const y = Math.floor((e.clientY - chessBoard.offsetTop - 800) / 100) + 8;
+      const shadowPosition = positions;
+      console.log(shadowPosition[gridX]);
+      setActivePiece(null);
     }
-  }
-
+  };
   return (
     <div
       className="grid grid-cols-8 w-4/5"

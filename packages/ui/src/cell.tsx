@@ -19,7 +19,9 @@ const cell = ({ color, path }: cellProps): JSX.Element => {
   };
 
   return (
-    <div className={`${color} w-full h-24 flex justify-center items-center`}>
+    <div
+      className={`${color} w-full h-24 flex justify-center items-center cell`}
+    >
       {path && (
         <div
           className={`${!isGrabbing ? "cursor-grab" : "cursor-grabbing"} h-24 w-24 mt-2 chessPiece`}
