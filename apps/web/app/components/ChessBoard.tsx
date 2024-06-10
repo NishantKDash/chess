@@ -51,8 +51,8 @@ const ChessBoard = () => {
       const py = Math.floor((e.clientY - chessBoard.offsetTop - 800) / 100) + 8;
       setActivePiece(element);
 
-      setGridX(px);
-      setGridY(py);
+      setGridX(py);
+      setGridY(px);
     }
   }
 
@@ -84,10 +84,23 @@ const ChessBoard = () => {
   const dropPiece = (e: React.MouseEvent) => {
     const chessBoard = boardRef.current;
     if (activePiece && chessBoard) {
-      const x = Math.floor((e.clientX - chessBoard.offsetLeft) / 100);
-      const y = Math.floor((e.clientY - chessBoard.offsetTop - 800) / 100) + 8;
+      const c_y = Math.floor((e.clientX - chessBoard.offsetLeft) / 100);
+      const c_x =
+        Math.floor((e.clientY - chessBoard.offsetTop - 800) / 100) + 8;
+      const prevIndex = gridY + 8 * gridX;
+      const newIndex = c_y + 8 * c_x;
+      console.log(prevIndex + " " + newIndex);
       const shadowPosition = positions;
-      console.log(shadowPosition[gridX]);
+      const prevElement = shadowPosition[prevIndex];
+      const newElement = shadowPosition[newIndex];
+      if (prevElement !== undefined) {
+        const piecePath = prevElement.piecePath;
+        prevElement.piecePath = "";
+        if (newElement) {
+          newElement.piecePath = piecePath;
+        }
+      }
+      setPositions(shadowPosition);
       setActivePiece(null);
     }
   };
